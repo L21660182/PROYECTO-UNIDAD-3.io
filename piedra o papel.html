@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra, Papel o Tijeras</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            background-color: #ffefd5;
+            padding: 50px;
+            position: relative; /* Para posicionar el botón de regreso */
+        }
+        h1 {
+            color: #333;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .opciones {
+            margin: 20px;
+        }
+        .opciones button {
+            background-color: #ffb6c1;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+        .opciones button:hover {
+            transform: scale(1.1);
+        }
+        .opciones img {
+            width: 80px;
+            height: 80px;
+            vertical-align: middle;
+        }
+        .resultado {
+            margin-top: 30px;
+            font-size: 1.8em;
+            color: #ff6347;
+        }
+        .ganaste {
+            color: #32cd32;
+            animation: celebracion 0.5s infinite alternate;
+        }
+        .perdiste {
+            color: #ff4500;
+        }
+        .empate {
+            color: #1e90ff;
+        }
+        @keyframes celebracion {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(10deg); }
+        }
+
+        /* Estilos para el botón de regreso */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: #1976d2;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #0d47a1;
+        }
+
+        .back-button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de regreso con enlace a la sección de la galería de proyectos -->
+    <button class="back-button" onclick="window.location.href='menu3.html#galeria-proyectos'">&#8592;</button>
+
+    <h1>¡Piedra, Papel o Tijeras! 🎮</h1>
+    <div class="opciones">
+        <button onclick="jugar('piedra')">
+            Piedra 🪨
+            <img src="https://img.icons8.com/color/48/rock.png" alt="Piedra">
+        </button>
+        <button onclick="jugar('papel')">
+            Papel 📄
+            <img src="https://img.icons8.com/color/48/paper.png" alt="Papel">
+        </button>
+        <button onclick="jugar('tijeras')">
+            Tijeras ✂️
+            <img src="https://img.icons8.com/color/48/scissors.png" alt="Tijeras">
+        </button>
+    </div>
+    <div class="resultado" id="resultado"></div>
+
+    <script>
+        function jugar(eleccionUsuario) {
+            const opciones = ['piedra', 'papel', 'tijeras'];
+            const eleccionComputadora = opciones[Math.floor(Math.random() * 3)];
+
+            let resultado = '';
+            let claseResultado = '';
+
+            if (eleccionUsuario === eleccionComputadora) {
+                resultado = `¡Es un empate! Ambos eligieron ${eleccionUsuario} 🤝`;
+                claseResultado = 'empate';
+            } else if (
+                (eleccionUsuario === 'piedra' && eleccionComputadora === 'tijeras') ||
+                (eleccionUsuario === 'papel' && eleccionComputadora === 'piedra') ||
+                (eleccionUsuario === 'tijeras' && eleccionComputadora === 'papel')
+            ) {
+                resultado = `¡Ganaste! ${eleccionUsuario} vence a ${eleccionComputadora} 🎉`;
+                claseResultado = 'ganaste';
+            } else {
+                resultado = `¡Perdiste! ${eleccionComputadora} vence a ${eleccionUsuario} 😢`;
+                claseResultado = 'perdiste';
+            }
+
+            const divResultado = document.getElementById('resultado');
+            divResultado.innerText = resultado;
+            divResultado.className = claseResultado;
+        }
+    </script>
+</body>
+</html>
